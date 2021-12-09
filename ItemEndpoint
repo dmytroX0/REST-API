@@ -1,0 +1,15 @@
+@RestResource(urlMapping='/v1/itemRecordPost/*')
+global with sharing class ItemEndpoint {
+    @HttpPost
+    global static String doPost(String name, Decimal Price, Decimal Quantity) {
+        System.debug(RestContext.request);
+        Item__c item = new Item__c();
+        item.Name = name;
+        item.Price__c = Price;
+        item.Quantity__c = Quantity;
+        insert item;
+        return item.Id;
+        
+    }
+ 
+}
