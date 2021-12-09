@@ -1,0 +1,11 @@
+trigger ItemWebServiceTrigger on Item__c (after insert) {
+    set<id> itmIdSet = new set<id>();
+    for(Item__c itm: Trigger.new){
+        if(itm.name!=NULL){
+            itmIdSet.add(itm.Id);
+        }
+    }
+    if(itmIdSet.size()>0){
+        ItemWebService.addItem(itmIdSet);
+    }
+}
