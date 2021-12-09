@@ -1,0 +1,23 @@
+@isTest
+public class ItemEndpointTest {
+    @isTest
+    static void testdoPost() {
+        Item__c itm = new Item__c();
+        itm.name = 'test';
+        itm.Price__c = 10;
+        itm.Quantity__c = 10;
+        insert itm;  
+        
+        RestRequest req = new RestRequest();
+        RestResponse res = new RestResponse();
+        req.requestURI = '/services/apexrest/v1/itemRecordPost/*'; //Request URL
+        req.httpMethod = 'POST';
+        
+        RestContext.request = req;
+        RestContext.response= res;
+        
+        Test.startTest();
+        ItemEndpoint.doPost(itm.name,itm.Price__c,itm.Quantity__c);
+        Test.stopTest();
+    }
+}
